@@ -26,18 +26,18 @@ class Xero
         return JWT::jsonDecode(JWT::urlsafeB64Decode($body));
     }
 
-     /**
-      * Serializes a Xero collection of models
-      * Note: this is necessary as each model has a reference to the
-      * Guzzle client which contains anonymous functions, and therefore
-      * we can't serialize it into cache "as is".
-      *
-      * @param Collection $collection A collection of models
-      *
-      * @see https://github.com/calcinai/xero-php/issues/734
-      *
-      * @return array
-      */
+    /**
+     * Serializes a Xero collection of models
+     * Note: this is necessary as each model has a reference to the
+     * Guzzle client which contains anonymous functions, and therefore
+     * we can't serialize it into cache "as is".
+     *
+     * @param Collection $collection A collection of models
+     *
+     * @see https://github.com/calcinai/xero-php/issues/734
+     *
+     * @return array
+     */
     public static function serialize(Collection $collection): array
     {
         $serialized = [];

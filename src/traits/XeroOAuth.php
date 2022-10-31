@@ -123,7 +123,8 @@ trait XeroOAuth
     public function getAccessToken(array $params = []): AccessTokenInterface
     {
         return $this->getProvider()->getAccessToken(
-            'authorization_code', [
+            'authorization_code',
+            [
             'code' => $params['code']
             ]
         );
@@ -139,7 +140,8 @@ trait XeroOAuth
     public function refreshAccessToken(string $refreshToken): AccessTokenInterface
     {
         return $this->getProvider()->getAccessToken(
-            'refresh_token', [
+            'refresh_token',
+            [
             'refresh_token' => $refreshToken
             ]
         );

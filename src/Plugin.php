@@ -43,25 +43,30 @@ use thejoshsmith\commerce\xero\models\Settings as SettingsModel;
  */
 class Plugin extends CraftPlugin
 {
+    // Traits
+    // =========================================================================
+
+    use Routes;
+    use Services;
     // Constants
     // =========================================================================
 
     /**
      * The plugin handle
      */
-    const HANDLE = 'commerce-xero';
+    public const HANDLE = 'commerce-xero';
 
     /**
      * The default Xero OAuth callback route
      * used when redirecting back to Craft
      */
-    const XERO_OAUTH_CALLBACK_ROUTE = 'xero/auth';
+    public const XERO_OAUTH_CALLBACK_ROUTE = 'xero/auth';
 
     /**
      * The default set of Xero OAuth grant permissions
      * the plugin will request from Xero
      */
-    const XERO_OAUTH_SCOPES = 'openid email profile offline_access accounting.transactions accounting.settings accounting.contacts';
+    public const XERO_OAUTH_SCOPES = 'openid email profile offline_access accounting.transactions accounting.settings accounting.contacts';
 
     // Static Properties
     // =========================================================================
@@ -74,13 +79,7 @@ class Plugin extends CraftPlugin
     // Public Properties
     // =========================================================================
 
-    public $schemaVersion = '1.2.0';
-
-    // Traits
-    // =========================================================================
-
-    use Routes;
-    use Services;
+    public string $schemaVersion = '1.2.0';
 
     // Public Methods
     // =========================================================================
@@ -161,7 +160,7 @@ class Plugin extends CraftPlugin
         return number_format((float)$number, $places, '.', '');
     }
 
-    public function getSettingsResponse()
+    public function getSettingsResponse(): mixed
     {
         Craft::$app->controller->redirect(UrlHelper::cpUrl('xero/settings'));
     }
@@ -174,7 +173,7 @@ class Plugin extends CraftPlugin
      *
      * @return void
      */
-    protected function createSettingsModel()
+    protected function createSettingsModel(): ?craft\base\Model
     {
         return new SettingsModel();
     }
@@ -191,7 +190,9 @@ class Plugin extends CraftPlugin
     {
         // Disconnect other current connections each time the user connects other tenants
         Event::on(
-            AuthController::class, AuthController::EVENT_AFTER_SAVE_OAUTH, function (OAuthEvent $event) {
+            AuthController::class,
+            AuthController::EVENT_AFTER_SAVE_OAUTH,
+            function (OAuthEvent $event) {
                 try {
                     $this->getXeroConnections()->handleAfterSaveOAuthEvent($event);
                 } catch (Exception $e) {
@@ -210,19 +211,22 @@ class Plugin extends CraftPlugin
     {
         // Registers a CP URL used to send an order to Xero
         Event::on(
-            UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, function (RegisterUrlRulesEvent $event) {
+            UrlManager::class,
+            UrlManager::EVENT_REGISTER_CP_URL_RULES,
+            function (RegisterUrlRulesEvent $event) {
                 $event->rules['sendordertoxero'] = Plugin::HANDLE . '/base/send-order-to-xero';
             }
         );
 
         // Loads additional JS into the commerce order edit screen
         Event::on(
-            View::class, View::EVENT_BEFORE_RENDER_TEMPLATE, function (TemplateEvent $event) {
-
+            View::class,
+            View::EVENT_BEFORE_RENDER_TEMPLATE,
+            function (TemplateEvent $event) {
                 $view = Craft::$app->getView();
 
                 // only run for CP requests
-                if ($view->getTemplateMode() !== $view::TEMPLATE_MODE_CP ) {
+                if ($view->getTemplateMode() !== $view::TEMPLATE_MODE_CP) {
                     return false;
                 }
 
@@ -231,7 +235,6 @@ class Plugin extends CraftPlugin
                 case 'commerce/orders/_edit':
 
                     if ($event->variables['order']->isCompleted) {
-
                         if ($this->api->getInvoiceFromOrder($event->variables['order'])) {
                             $js = trim('var sentToXero = true');
                         } else {
@@ -242,7 +245,6 @@ class Plugin extends CraftPlugin
                             $view->registerJs($js, View::POS_END);
                         }
                         $view->registerAssetBundle(SendToXeroAsset::class);
-
                     }
 
                     break;
@@ -252,7 +254,9 @@ class Plugin extends CraftPlugin
 
         // Send completed and paid orders off to Xero (30 second delay)
         Event::on(
-            Order::class, Order::EVENT_AFTER_ORDER_PAID, function (Event $e) {
+            Order::class,
+            Order::EVENT_AFTER_ORDER_PAID,
+            function (Event $e) {
                 Craft::$app->queue->delay(30)->push(
                     new SendToXeroJob(
                         [
@@ -270,10 +274,13 @@ class Plugin extends CraftPlugin
     private function _registerVariables()
     {
         Event::on(
-            CraftVariable::class, CraftVariable::EVENT_INIT, function (Event $event) {
+            CraftVariable::class,
+            CraftVariable::EVENT_INIT,
+            function (Event $event) {
                 $variable = $event->sender;
                 $variable->attachBehavior(
-                    self::HANDLE, CraftVariableBehavior::class
+                    self::HANDLE,
+                    CraftVariableBehavior::class
                 );
             }
         );

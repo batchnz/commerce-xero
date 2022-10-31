@@ -13,13 +13,13 @@ use craft\web\User;
  */
 class Connection extends ActiveRecord
 {
-    const STATUS_CONNECTED = 'connected';
-    const STATUS_DISCONNECTED = 'disconnected';
+    public const STATUS_CONNECTED = 'connected';
+    public const STATUS_DISCONNECTED = 'disconnected';
 
     /**
      * Define Scenarios
      */
-    const SCENARIO_PATCH = 'patch';
+    public const SCENARIO_PATCH = 'patch';
 
     /**
      * @inheritdoc

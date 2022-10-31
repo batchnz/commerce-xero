@@ -8,7 +8,6 @@ namespace thejoshsmith\commerce\xero\jobs;
 
 use thejoshsmith\commerce\xero\Plugin;
 
-use Craft;
 use craft\queue\BaseJob;
 use craft\commerce\Plugin as Commerce;
 
@@ -22,7 +21,6 @@ class SendToXeroJob extends BaseJob
      */
     public $orderID;
 
-
     // Protected Methods
     // ========================================================================
 
@@ -30,7 +28,6 @@ class SendToXeroJob extends BaseJob
     {
         return Plugin::t('Send Order to Xero');
     }
-
 
     // Public Methods
     // =========================================================================

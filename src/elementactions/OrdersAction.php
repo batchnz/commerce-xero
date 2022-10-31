@@ -37,5 +37,4 @@ class OrdersAction extends ElementAction
         $type = Json::encode(static::class);
         // Craft::$app->getView()->registerJs($js);
     }
-
 }

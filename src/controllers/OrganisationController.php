@@ -19,7 +19,6 @@
 namespace thejoshsmith\commerce\xero\controllers;
 
 use thejoshsmith\commerce\xero\Plugin;
-use thejoshsmith\commerce\xero\controllers\BaseController;
 use thejoshsmith\commerce\xero\models\OrganisationSettings as OrganisationSettingsModel;
 
 use Craft;
@@ -67,13 +66,14 @@ class OrganisationController extends BaseController
         if ($connection) {
             try {
                 $accounts = Plugin::getInstance()->getXeroApi()->getAccounts();
-            } catch(Throwable $e) {
+            } catch (Throwable $e) {
                 Craft::$app->getSession()->setError($e->getMessage());
             }
         }
 
         return $this->renderTemplate(
-            Plugin::HANDLE . '/organisation/_index', compact(
+            Plugin::HANDLE . '/organisation/_index',
+            compact(
                 'pluginSettings',
                 'orgSettings',
                 'connection',
@@ -96,7 +96,7 @@ class OrganisationController extends BaseController
         $data = $this->request->getBodyParams();
 
         // Connection ID is a required parameter
-        if (empty($data['connectionId']) ) {
+        if (empty($data['connectionId'])) {
             $this->setFailFlash(Plugin::t('Couldn\'t find the organisation\'s connection.'));
             return null;
         }

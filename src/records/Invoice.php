@@ -15,7 +15,6 @@ use craft\commerce\elements\Order;
 
 class Invoice extends ActiveRecord
 {
-
     // Public Methods
     // =========================================================================
 

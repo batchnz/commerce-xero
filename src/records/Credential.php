@@ -34,9 +34,8 @@ class Credential extends ActiveRecord
         AccessTokenInterface $accessToken,
         Credential $credential = null
     ): Credential {
-
         if (empty($credential)) {
-            $credential = new Credential;
+            $credential = new Credential();
         }
 
         $credential->accessToken = $accessToken->getToken();

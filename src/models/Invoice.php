@@ -15,7 +15,6 @@ use craft\base\Model;
 use Craft;
 use yii\base\Exception;
 use craft\commerce\records\Order;
-use thejoshsmith\commerce\xero\records\Invoice;
 
 class Invoice extends Model
 {
@@ -29,11 +28,10 @@ class Invoice extends Model
     public $dateCreated;
     public $dateUpdated;
 
-
     // Public Methods
     // =========================================================================
 
-    public function rules()
+    public function rules(): array
     {
         return [
             [['id', 'orderId'], 'number', 'integerOnly' => true],
@@ -65,7 +63,8 @@ class Invoice extends Model
             if (!$record) {
                 throw new Exception(
                     Craft::t(
-                        'app', 'No Xero invoice record exists with the ID “{id}”',
+                        'app',
+                        'No Xero invoice record exists with the ID “{id}”',
                         ['id' => $model->id]
                     )
                 );

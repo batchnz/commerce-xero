@@ -45,7 +45,7 @@ use XeroPHP\Remote\Exception\OrganisationOfflineException;
  */
 class XeroAPI extends Component
 {
-    const CACHE_DURATION = 3600; // 1 hour
+    public const CACHE_DURATION = 3600; // 1 hour
 
     /**
      * Events
@@ -126,7 +126,6 @@ class XeroAPI extends Component
                 $this->_client->refreshAccessToken();
                 $this->_hasRefreshed = true;
             }
-
         } catch (Exception $e) {
             throw new Exception('Something went wrong establishing a Xero connection, check there\'s an active connection.');
         }
@@ -148,7 +147,6 @@ class XeroAPI extends Component
                     $account = $this->getAccountByCode($this->_client->getOrgSettings()->accountReceivable);
                     if ($account) {
                         $payment = $this->createPayment($invoice, $account, $order);
-
                     }
                     return true;
                 }
@@ -210,7 +208,7 @@ class XeroAPI extends Component
                 $contact = $afterSaveEvent->contact;
             }
             return $contact;
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             $this->_handleException($e);
         }
         return false;
@@ -266,7 +264,7 @@ class XeroAPI extends Component
                 $lineItem->setQuantity(1);
                 $lineItem->setUnitAmount(Plugin::getInstance()->withDecimals($this->decimals, $order->getTotalShippingCost()));
                 $invoice->addLineItem($lineItem);
-            } elseif ($adjustment->type == 'discount' ) {
+            } elseif ($adjustment->type == 'discount') {
                 $lineItem = new LineItem($this->getApplication());
                 $lineItem->setAccountCode($this->_client->getOrgSettings()->accountDiscount);
                 $lineItem->setDescription($adjustment->name);
@@ -292,7 +290,6 @@ class XeroAPI extends Component
             ->setInvoiceNumber($order->reference)
             ->setSentToContact(true)
             ->setDueDate(new \DateTime('NOW'));
-
 
         // Raise event for before invoice save
         $beforeSaveEvent = new InvoiceEvent(
@@ -347,13 +344,11 @@ class XeroAPI extends Component
             $invoice = $afterSaveEvent->invoice;
 
             return $invoice;
-
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             $this->_handleException($e);
         }
 
         return false;
-
     }
 
     public function createPayment(Invoice $invoice, Account $account, Order $order)
@@ -368,7 +363,7 @@ class XeroAPI extends Component
                 ->setDate($order->datePaid);
             $payment->save();
             return $payment;
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             $this->_handleException($e);
         }
         return false;
@@ -387,8 +382,7 @@ class XeroAPI extends Component
                 $accounts = $application->load(Account::class)->execute();
                 $cache->set($cacheKey, XeroHelper::serialize($accounts), self::CACHE_DURATION);
             }
-
-        } catch(Throwable $e) {
+        } catch (Throwable $e) {
             $this->_handleException($e);
         }
 
@@ -399,8 +393,9 @@ class XeroAPI extends Component
     {
         try {
             $account = $this->getApplication()->load(Account::class)->where('Code=="' . $code . '"')->first();
-        } catch(Throwable $e) {
-            $this->_handleException($e);;
+        } catch (Throwable $e) {
+            $this->_handleException($e);
+            ;
         }
 
         return $account ?? null;
@@ -426,7 +421,7 @@ class XeroAPI extends Component
     {
         $exceptionType = get_class($e);
 
-        switch($exceptionType) {
+        switch ($exceptionType) {
         case NotFoundException::class:
             throw new Exception('The resource you requested in Xero could not be found.');
             break;

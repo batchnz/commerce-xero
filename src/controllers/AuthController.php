@@ -19,7 +19,6 @@
 namespace thejoshsmith\commerce\xero\controllers;
 
 use thejoshsmith\commerce\xero\Plugin;
-use thejoshsmith\commerce\xero\controllers\BaseController;
 use thejoshsmith\commerce\xero\helpers\Xero as XeroHelper;
 use thejoshsmith\commerce\xero\events\OAuthEvent;
 
@@ -36,8 +35,8 @@ use yii\web\Response;
  */
 class AuthController extends BaseController
 {
-    const EVENT_BEFORE_SAVE_OAUTH = 'beforeSaveOAuth';
-    const EVENT_AFTER_SAVE_OAUTH = 'afterSaveOAuth';
+    public const EVENT_BEFORE_SAVE_OAUTH = 'beforeSaveOAuth';
+    public const EVENT_AFTER_SAVE_OAUTH = 'afterSaveOAuth';
 
     // Public Methods
     // =========================================================================
@@ -45,7 +44,7 @@ class AuthController extends BaseController
     /**
      * @throws HttpException
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -69,7 +68,7 @@ class AuthController extends BaseController
         }
 
         // Trigger the OAuth flow
-        if (!isset($params['code']) ) {
+        if (!isset($params['code'])) {
             $authUrl = $xeroOAuthService->getAuthorizationUrl(
                 [
                 'scope' => $xeroOAuthService->getScopes()
@@ -131,7 +130,6 @@ class AuthController extends BaseController
             $this->trigger(self::EVENT_AFTER_SAVE_OAUTH, $event);
 
             Craft::$app->getSession()->setNotice('Xero connection successfully saved');
-
         } catch (XeroProviderException | Throwable $xpe) {
             Craft::error(
                 $xpe->getMessage(),

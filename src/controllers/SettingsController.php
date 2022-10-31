@@ -54,12 +54,14 @@ class SettingsController extends BaseController
                 Plugin::t('Couldn’t save settings.')
             );
             return $this->renderTemplate(
-                Plugin::HANDLE . '/settings/_index', compact('settings')
+                Plugin::HANDLE . '/settings/_index',
+                compact('settings')
             );
         }
 
         $pluginSettingsSaved = Craft::$app->getPlugins()->savePluginSettings(
-            Plugin::getInstance(), $settings->toArray()
+            Plugin::getInstance(),
+            $settings->toArray()
         );
 
         if (!$pluginSettingsSaved) {
@@ -67,7 +69,8 @@ class SettingsController extends BaseController
                 Plugin::t('Couldn’t save settings.')
             );
             return $this->renderTemplate(
-                Plugin::HANDLE . '/settings/_index', compact('settings')
+                Plugin::HANDLE . '/settings/_index',
+                compact('settings')
             );
         }
 

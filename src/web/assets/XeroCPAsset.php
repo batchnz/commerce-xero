@@ -1,4 +1,5 @@
 <?php
+
 namespace thejoshsmith\commerce\xero\web\assets;
 
 use craft\web\AssetBundle;
