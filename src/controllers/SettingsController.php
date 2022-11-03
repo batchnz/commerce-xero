@@ -14,7 +14,7 @@ class SettingsController extends BaseController
     /**
      * @throws HttpException
      */
-    public function init()
+    public function init(): void
     {
         $this->requireAdmin();
         parent::init();

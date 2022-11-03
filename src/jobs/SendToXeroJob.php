@@ -24,7 +24,7 @@ class SendToXeroJob extends BaseJob
     // Protected Methods
     // ========================================================================
 
-    protected function defaultDescription()
+    protected function defaultDescription(): null|string
     {
         return Plugin::t('Send Order to Xero');
     }
@@ -32,7 +32,7 @@ class SendToXeroJob extends BaseJob
     // Public Methods
     // =========================================================================
 
-    public function execute($queue)
+    public function execute($queue): void
     {
         $totalSteps = 1;
         for ($step = 0; $step < $totalSteps; $step++) {

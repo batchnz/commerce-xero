@@ -20,7 +20,7 @@ class OrdersAction extends ElementAction
 {
     public $label;
 
-    public function init()
+    public function init(): void
     {
         if ($this->label === null) {
             $this->label = Plugin::t('Send to Xero');
@@ -32,7 +32,7 @@ class OrdersAction extends ElementAction
         return $this->label;
     }
 
-    public function getTriggerHtml()
+    public function getTriggerHtml(): null|string
     {
         $type = Json::encode(static::class);
         // Craft::$app->getView()->registerJs($js);
