@@ -165,7 +165,7 @@ class XeroAPI extends Component
             // Note: It's possible for customers to _only_ have
             // an email address, so we need to cater for that scenario
             $contactEmail = $user ? $user->email : $order->getEmail();
-            $contactName = $user ? $user->getName() : $order->getEmail();
+            $contactName = $user?->getName() ? $user->getName() : $order->getEmail();
             $contactFirstName = $user->firstName ?? null;
             $contactLastName = $user->lastName ?? null;
 

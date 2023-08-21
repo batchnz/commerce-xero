@@ -242,7 +242,7 @@ class Plugin extends CraftPlugin
                         }
 
                         if ($js) {
-                            $view->registerJs($js, View::POS_END);
+                            $view->registerJs($js, View::POS_HEAD);
                         }
                         $view->registerAssetBundle(SendToXeroAsset::class);
                     }
