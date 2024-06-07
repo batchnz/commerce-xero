@@ -169,12 +169,15 @@ class XeroAPI extends Component
             $contactFirstName = $user->firstName ?? null;
             $contactLastName = $user->lastName ?? null;
 
-            $contact = $this->getApplication()->load(Contact::class)->where(
-                '
-                Name=="' . $contactName . '" OR
-                EmailAddress=="' . $contactEmail . '"
-            '
-            )->first();
+            $contact = $this->getApplication()->load(Contact::class)
+                ->where("EmailAddress", $contactEmail)
+                ->first();
+
+            if (!$contact) {
+                $contact = $this->getApplication()->load(Contact::class)
+                    ->where("Name", $contactEmail)
+                    ->first();
+            }
 
             if (empty($contact) && !isset($contact)) {
                 $contact = new Contact($this->getApplication());
