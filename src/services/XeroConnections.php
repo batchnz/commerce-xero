@@ -10,7 +10,6 @@
 
 namespace thejoshsmith\commerce\xero\services;
 
-
 use Craft;
 use craft\base\Component;
 
@@ -108,7 +107,7 @@ class XeroConnections extends Component
         // Check if the user has authorised a specific tenant
         // If so, update the DB to reflect that decision
         $selectedTenant = null;
-        foreach($event->tenants as $tenant) {
+        foreach ($event->tenants as $tenant) {
             if ($tenant->authEventId === $event->jwt->authentication_event_id) {
                 $selectedTenant = $tenant;
             }
@@ -121,7 +120,7 @@ class XeroConnections extends Component
         // existing organisations on a non-production environment and then
         // deployed without the connection database records.
         if (empty($selectedTenant)) {
-             $selectedTenant = $event->tenants[0];
+            $selectedTenant = $event->tenants[0];
         }
 
         // Find the connection related to the selected tenant
@@ -234,7 +233,7 @@ class XeroConnections extends Component
 
             $connection->selected = true;
 
-            if (! $connection->validate() ) {
+            if (! $connection->validate()) {
                 throw new Exception(
                     'A validation error occurred when marking
                     the connection as selected.'

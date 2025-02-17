@@ -94,7 +94,7 @@ trait XeroOAuthStorage
                     $siteId
                 );
                 $transaction->commit();
-            } catch(\Exception $e) {
+            } catch (\Exception $e) {
                 $transaction->rollBack();
             }
 
@@ -119,7 +119,7 @@ trait XeroOAuthStorage
             }
 
             $transaction->commit();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $transaction->rollBack();
         }
 
@@ -248,7 +248,7 @@ trait XeroOAuthStorage
             ]
         )->one();
 
-        if (!empty($existingTenantRecord) ) {
+        if (!empty($existingTenantRecord)) {
             $tenantRecord->id = $existingTenantRecord->id;
             $tenantRecord->setIsNewRecord(false);
         }

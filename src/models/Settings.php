@@ -16,9 +16,9 @@ class Settings extends Model
     /**
      * Defines validation rules for the above settings
      *
-     * @return void
+     * @return array[]
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['xeroClientId', 'xeroClientSecret'], 'required'],

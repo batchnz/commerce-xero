@@ -125,7 +125,7 @@ trait Services
                 'thejoshsmith\commerce\xero\models\XeroClient',
                 XeroClientFactory::build()
             );
-        } catch (Exception $e){
+        } catch (Exception $e) {
             // Swallow it whole
         }
 
@@ -134,9 +134,10 @@ trait Services
         // its automatic constructor dependency injection.
         try {
             Craft::$container->set(
-                'XeroPHP\Application', XeroClientFactory::buildApplication()
+                'XeroPHP\Application',
+                XeroClientFactory::buildApplication()
             );
-        } catch (Exception $e){
+        } catch (Exception $e) {
             Craft::error(
                 'Failed to instantiate a Xero Application with error: ' . $e->getMessage(),
                 __METHOD__

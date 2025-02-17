@@ -42,7 +42,8 @@ class Install extends Migration
     {
         if (!$this->_tableExists(Invoice::tableName())) {
             $this->createTable(
-                Invoice::tableName(), [
+                Invoice::tableName(),
+                [
                 'id' => $this->primaryKey(),
                 'uid' => $this->uid(),
                 'orderId' => $this->integer()->notNull(),
@@ -55,7 +56,8 @@ class Install extends Migration
 
         if (!$this->_tableExists(Tenant::tableName())) {
             $this->createTable(
-                Tenant::tableName(), [
+                Tenant::tableName(),
+                [
                     'id' => $this->primaryKey(),
                     'tenantId' => $this->string(40)->notNull(),
                     'tenantType' => $this->string(255)->notNull(),
@@ -69,7 +71,8 @@ class Install extends Migration
 
         if (!$this->_tableExists(Credential::tableName())) {
             $this->createTable(
-                Credential::tableName(), [
+                Credential::tableName(),
+                [
                     'id' => $this->primaryKey(),
                     'accessToken' => $this->text()->notNull(),
                     'refreshToken' => $this->text(),
@@ -84,7 +87,8 @@ class Install extends Migration
 
         if (!$this->_tableExists(ResourceOwner::tableName())) {
             $this->createTable(
-                ResourceOwner::tableName(), [
+                ResourceOwner::tableName(),
+                [
                     'id' => $this->primaryKey(),
                     'xeroUserId' => $this->string(40)->notNull(),
                     'preferredUsername' => $this->string(255)->notNull(),
@@ -100,7 +104,8 @@ class Install extends Migration
 
         if (!$this->_tableExists((Connection::tableName()))) {
             $this->createTable(
-                Connection::tableName(), [
+                Connection::tableName(),
+                [
                 'id' => $this->primaryKey(),
                 'connectionId' => $this->string(40)->notNull(),
                 'credentialId' => $this->integer()->notNull(),
@@ -162,5 +167,4 @@ class Install extends Migration
 
         return (bool)$table;
     }
-
 }

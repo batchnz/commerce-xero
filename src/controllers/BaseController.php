@@ -26,7 +26,7 @@ class BaseController extends Controller
      *
      * @return void
      */
-    public function init()
+    public function init(): void
     {
         $this->requireLogin();
         $this->requirePermission('accessPlugin-xero');
@@ -46,5 +46,4 @@ class BaseController extends Controller
         }
         return false;
     }
-
 }

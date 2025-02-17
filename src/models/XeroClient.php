@@ -4,9 +4,7 @@ namespace thejoshsmith\commerce\xero\models;
 
 use XeroPHP\Application;
 use craft\base\Component;
-use Exception;
 use thejoshsmith\commerce\xero\factories\XeroClient as FactoriesXeroClient;
-use thejoshsmith\commerce\xero\models\OrganisationSettings;
 use thejoshsmith\commerce\xero\records\Connection;
 use thejoshsmith\commerce\xero\records\Credential;
 use thejoshsmith\commerce\xero\records\ResourceOwner;

@@ -19,12 +19,8 @@
 namespace thejoshsmith\commerce\xero\controllers;
 
 use thejoshsmith\commerce\xero\Plugin;
-use thejoshsmith\commerce\xero\controllers\BaseController;
 use thejoshsmith\commerce\xero\records\Connection;
 
-use Craft;
-
-use yii\web\Response;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 

@@ -10,10 +10,8 @@
 
 namespace thejoshsmith\commerce\xero\behaviors;
 
-use Craft;
 use yii\base\Behavior;
 
 class OrderBehavior extends Behavior
 {
-
 }

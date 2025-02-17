@@ -46,7 +46,9 @@ trait Routes
     private function _registerCpRoutes()
     {
         Event::on(
-            UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, function (RegisterUrlRulesEvent $event) {
+            UrlManager::class,
+            UrlManager::EVENT_REGISTER_CP_URL_RULES,
+            function (RegisterUrlRulesEvent $event) {
                 $event->rules['xero'] = ['template' => Plugin::HANDLE . '/index'];
                 $event->rules['xero/organisation'] = Plugin::HANDLE . '/organisation/index';
                 $event->rules['xero/connections/update'] = Plugin::HANDLE . '/connections/update';
